@@ -367,7 +367,9 @@ class PrintModal extends React.PureComponent {
               <Input ref={this.allPages} id="all-pages" name="pages" type="radio" label={t('option.print.all')} defaultChecked />
               <Input ref={this.currentPage} id="current-page" name="pages" type="radio" label={t('option.print.current')} />
               <Input ref={this.customPages} id="custom-pages" name="pages" type="radio" label={customPagesLabelElement} />
-              <Input ref={this.marquee} id="marquee" name="pages" type="radio" label='Marquee area' />
+              {window.marqueePrintOptions &&
+                <Input ref={this.marquee} id="marquee" name="pages" type="radio" label='Marquee area' />
+              }
               <Input ref={this.includeComments} id="include-comments" name="comments" type="checkbox" label={t('option.print.includeComments')} />
             </form>
           </div>
