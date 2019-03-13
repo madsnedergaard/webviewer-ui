@@ -37,6 +37,7 @@ class PrintModal extends React.PureComponent {
     this.allPages = React.createRef();
     this.currentPage = React.createRef();
     this.customPages = React.createRef();
+    this.marquee = React.createRef();
     this.customInput = React.createRef();
     this.includeComments = React.createRef();
     this.pendingCanvases = [];
@@ -66,6 +67,8 @@ class PrintModal extends React.PureComponent {
     } else if (this.customPages.current.checked) {
       const customInput = this.customInput.current.value.replace(/\s+/g, '');
       pagesToPrint = getPagesToPrint(customInput, pageLabels);
+    } else if (this.marquee.current.checked) {
+      pagesToPrint.push(window.marqueePrintOptions.pageIndex + 1);
     }
 
     this.setState({ pagesToPrint });
@@ -120,8 +123,9 @@ class PrintModal extends React.PureComponent {
     return new Promise(resolve => {
       const pageIndex = pageNumber - 1;
       const zoom = 1;
-      const printRotation = this.getPrintRotation(pageIndex);
-      const onCanvasLoaded = canvas => {
+      const pageRotation = this.getPageRotation(pageIndex);
+
+      const drawComplete = canvas => {
         this.pendingCanvases = this.pendingCanvases.filter(pendingCanvas => pendingCanvas !== id);
         this.positionCanvas(canvas, pageIndex);
         this.drawAnnotationsOnCanvas(canvas, pageNumber).then(() => {
@@ -136,24 +140,29 @@ class PrintModal extends React.PureComponent {
         });
       };
 
-      const id = core.getDocument().loadCanvasAsync(pageIndex, zoom, printRotation, onCanvasLoaded);
+      const options = { pageIndex, zoom, pageRotation, drawComplete };
+      if (this.marquee.current.checked) {
+        options.renderRect = window.marqueePrintOptions.rect;
+      }
+
+      const id = core.getDocument().loadCanvasAsync(options);
       this.pendingCanvases.push(id);
     });
   }
 
-  getPrintRotation = pageIndex => {
+  getPageRotation = pageIndex => {
     const { width, height } = core.getPageInfo(pageIndex);
     const documentRotation = this.getDocumentRotation(pageIndex);
-    let printRotation = (4 - documentRotation) % 4;
+    let pageRotation = (4 - documentRotation) % 4;
 
     // automatically rotate pages so that they fill up as much of the printed page as possible
-    if (printRotation % 2 === 0 && width > height) {
-      printRotation++;
-    } else if (printRotation % 2 === 1 && height > width) {
-      printRotation--;
+    if (pageRotation % 2 === 0 && width > height) {
+      pageRotation++;
+    } else if (pageRotation % 2 === 1 && height > width) {
+      pageRotation--;
     }
 
-    return printRotation;
+    return pageRotation;
   }
 
   positionCanvas = (canvas, pageIndex) => {
@@ -358,6 +367,7 @@ class PrintModal extends React.PureComponent {
               <Input ref={this.allPages} id="all-pages" name="pages" type="radio" label={t('option.print.all')} defaultChecked />
               <Input ref={this.currentPage} id="current-page" name="pages" type="radio" label={t('option.print.current')} />
               <Input ref={this.customPages} id="custom-pages" name="pages" type="radio" label={customPagesLabelElement} />
+              <Input ref={this.marquee} id="marquee" name="pages" type="radio" label='Marquee area' />
               <Input ref={this.includeComments} id="include-comments" name="comments" type="checkbox" label={t('option.print.includeComments')} />
             </form>
           </div>
