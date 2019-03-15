@@ -67,7 +67,7 @@ class PrintModal extends React.PureComponent {
     } else if (this.customPages.current.checked) {
       const customInput = this.customInput.current.value.replace(/\s+/g, '');
       pagesToPrint = getPagesToPrint(customInput, pageLabels);
-    } else if (this.marquee.current.checked) {
+    } else if (this.marquee.current && this.marquee.current.checked) {
       pagesToPrint.push(window.marqueePrintOptions.pageIndex + 1);
     }
 
@@ -141,7 +141,7 @@ class PrintModal extends React.PureComponent {
       };
 
       const options = { pageIndex, zoom, pageRotation, drawComplete };
-      if (this.marquee.current.checked) {
+      if (this.marquee.current && this.marquee.current.checked) {
         options.renderRect = window.marqueePrintOptions.rect;
       }
 
