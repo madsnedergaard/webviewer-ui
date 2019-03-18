@@ -10,17 +10,25 @@ var mouseLeftUp = Tools.MarqueeZoomTool.prototype.mouseLeftUp;
 Tools.MarqueeZoomTool.prototype.mouseLeftUp = function(e) {
   mouseLeftUp.apply(this, arguments);
   var pageCoordinatesNoRotate = [];
+
+  if (this.pageCoordinates[1] === null) {
+    return;
+  }
+
   pageCoordinatesNoRotate[0] = getPageCoordinatesNoRotate(this.pageCoordinates[0]);
   pageCoordinatesNoRotate[1] = getPageCoordinatesNoRotate(this.pageCoordinates[1]);
+  var x1 = Math.min(pageCoordinatesNoRotate[0].x, pageCoordinatesNoRotate[1].x);
+  var x2 = Math.max(pageCoordinatesNoRotate[0].x, pageCoordinatesNoRotate[1].x);
+  var y1 = Math.min(pageCoordinatesNoRotate[0].y, pageCoordinatesNoRotate[1].y);
+  var y2 = Math.max(pageCoordinatesNoRotate[0].y, pageCoordinatesNoRotate[1].y);
+
+  if (x1 === x2 || y1 === y2) {
+    return;
+  }
 
   window.marqueePrintOptions = {
     pageIndex: this.pageCoordinates[0].pageIndex,
-    rect: {
-      x1: pageCoordinatesNoRotate[0].x,
-      x2: pageCoordinatesNoRotate[1].x,
-      y1: pageCoordinatesNoRotate[0].y,
-      y2: pageCoordinatesNoRotate[1].y,
-    }
+    rect: { x1, x2, y1, y2 }
   };
 }
 
