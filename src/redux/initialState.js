@@ -125,7 +125,6 @@ export default {
     isNoteEditing: false,
     fitMode: '',
     zoom: 1,
-    rotation: 0,
     displayMode: 'Single',
     currentPage: 1,
     sortStrategy: 'position',

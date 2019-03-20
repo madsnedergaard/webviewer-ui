@@ -13,7 +13,6 @@ class CustomElement extends React.PureComponent {
     dataElement: PropTypes.string,
     display: PropTypes.string,
     render: PropTypes.func.isRequired,
-    mediaQueryClassName: PropTypes.string
   }
 
   constructor(props) {
@@ -63,7 +62,6 @@ class CustomElement extends React.PureComponent {
         className={[className, mediaQueryClassName].join(' ').trim()}
         ref={this.elementWrapper} 
         data-element={dataElement}
-        style={{ display }}
       >
         {this.state.isRenderingReactComponent &&
           render()

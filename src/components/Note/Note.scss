@@ -5,14 +5,13 @@
   width: 100%;
   margin-top: -1px;
   padding: 10px;
-  border: 1px solid $gray12;
-  border: 1px solid var(--border-color);
+
   font-size: 13px;
   background: white;
   background: var(--primary-color);
 
   &.expanded {
-    margin: 10px 0;
+    margin: 0;
   }
 
   &.hidden {
@@ -20,7 +19,7 @@
   }
 
   .replies {
-    margin: 15px 0 0;
+    margin: 0 0 0;
     transition: all 1s ease;
 
     &.visible {
@@ -39,11 +38,11 @@
   .add-reply {
     display: flex;
     flex-direction: column;
-    margin: 15px 0 0;
+    margin: 10px 0 0;
     
     textarea {
       width: 100%;
-      height: 30px;
+      height: 100px;
       resize: none;
       overflow: hidden;
       box-sizing: border-box;

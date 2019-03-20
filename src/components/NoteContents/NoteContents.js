@@ -40,8 +40,8 @@ class NoteContents extends React.Component {
   
   onChange = () => {
     this.setState({ isChanged: this.textInput.current.value !== this.state.word });    
-    this.textInput.current.style.height = '30px';
-    this.textInput.current.style.height = (this.textInput.current.scrollHeight + 2) + 'px';
+    //this.textInput.current.style.height = '30px';
+    //this.textInput.current.style.height = (this.textInput.current.scrollHeight + 2) + 'px';
   }
 
   onKeyDown = e => {
@@ -86,7 +86,7 @@ class NoteContents extends React.Component {
               onBlur={closeEditing}         
               defaultValue={contents} 
               placeholder={`${t('action.comment')}...`}
-            />
+          />
             <span className="buttons">
               <button className = {this.state.isChanged ? '':'disabled'} onMouseDown={this.setContents}>{t('action.save')}</button>
               <button onMouseDown={closeEditing}>{t('action.cancel')}</button>

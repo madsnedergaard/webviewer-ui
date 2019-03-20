@@ -3,6 +3,7 @@
 
 .NoteContents {
   padding-top: 3px;
+  flex-grow: 1;
   cursor: auto;
   white-space: pre-wrap;
 
@@ -21,7 +22,7 @@
 
     textarea {
       width: 100%;
-      height: 30px;
+      height: 100px;
       resize: none;
       overflow: hidden;
       box-sizing: border-box;

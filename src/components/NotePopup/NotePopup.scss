@@ -1,7 +1,7 @@
 @import '../../constants/styles';
 
 .NotePopup  {
-  flex-grow: 1;
+  
   display: flex;
   justify-content: flex-end;
   user-select: none;
@@ -20,8 +20,8 @@
   
   .modify {
     flex-direction: column;
-    right: 0;
-    top: 100%;
+    right: -30px;
+    top: 90px;
     padding: 5px;
     background: white;
     background: var(--primary-color);

@@ -1,16 +1,17 @@
 @import '../../constants/styles';
 
 :root {
-  --primary-color: #FFFFFF;
+  --primary-color: #273444;
   --secondary-color: #F5F5F5;
   --border-color: #E0E0E0;
-  --button-hover-color: #F6F6F6;
-  --button-active-color: #F0F0F0;
-  --text-color: #333333;
-  --icon-color: #757575;
-  --icon-active-color: #757575;
+  --button-hover-color: #686880;
+  --button-active-color: #686880;
+  --text-color: #fff;
+  --icon-color: #fff;
+  --icon-active-color: #fff;
   --left-panel-width: 300px;
 }
+
 
 html, body , #app {
   width: 100%;

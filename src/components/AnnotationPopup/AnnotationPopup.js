@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Note from 'components/Note';
 
 import ActionButton from 'components/ActionButton';
 import AnnotationStylePopup from 'components/AnnotationStylePopup';
@@ -103,6 +104,7 @@ class AnnotationPopup extends React.PureComponent {
   onAnnotationSelected = (e, annotations, action) => {
     if (action === 'selected' && annotations.length === 1) {
       const annotation = annotations[0];
+      
       this.setState({
         annotation,
         canModify: core.canModify(annotation)
@@ -170,23 +172,27 @@ class AnnotationPopup extends React.PureComponent {
 
   render() {
     const { annotation, left, top, canModify, isStylePopupOpen } = this.state;
+    
     const { isNotesPanelDisabled, isDisabled, isOpen, isAnnotationStylePopupDisabled } = this.props;
     const style = getAnnotationStyles(annotation);
     const hasStyle = Object.keys(style).length > 0;
     const className = getClassName(`Popup AnnotationPopup`, this.props);
     const redactionEnabled = core.isAnnotationRedactable(annotation);
+
+    const canReply = annotation && annotation.getReplies;
+    console.log(canReply);
+
     if (isDisabled) {
       return null;
     }
-
+    
+    const rowstyle = { left, top, flexDirection: 'column', width: 350, padding: 0 };
     return (
-      <div className={className} ref={this.popup} data-element="annotationPopup" style={{ left, top }} onClick={e => e.stopPropagation()} onMouseDown={e => e.stopPropagation()}>
+      <div className={className} ref={this.popup} data-element="annotationPopup" style={rowstyle} onClick={e => e.stopPropagation()} onMouseDown={e => e.stopPropagation()}>
+      <div style={{flexDirection: 'row', display: 'flex'}}>
         {isStylePopupOpen
           ? <AnnotationStylePopup annotation={annotation} style={style} isOpen={isOpen} />
           : <React.Fragment>
-            {!isNotesPanelDisabled &&
-              <ActionButton dataElement="annotationCommentButton" title="action.comment" img="ic_comment_black_24px" onClick={this.commentOnAnnotation} />
-            }
             {canModify && hasStyle && !isAnnotationStylePopupDisabled &&
               <ActionButton dataElement="annotationStyleEditButton" title="action.style" img="ic_palette_black_24px" onClick={this.openStylePopup} />
             }
@@ -197,12 +203,26 @@ class AnnotationPopup extends React.PureComponent {
               <ActionButton dataElement="annotationDeleteButton" title="action.delete" img="ic_delete_black_24px" onClick={this.deleteAnnotation} />
             }
           </React.Fragment>
-        }
+        }</div>
+        <div style={canReply ? openStyle : closedStyle}>{annotation && annotation.getReplies  &&<Note visible annotation={annotation} searchInput={''} rootContents={''} />}</div>
       </div>
     );
   }
 }
 
+const closedStyle = {
+backgroundColor: 'var(--primary-color)',
+color: '#333',
+width: 350,  
+height: 0,
+borderBottomLeftRadius: 5,
+borderBottomRightRadius: 5,
+};
+
+const openStyle = {
+  ...closedStyle,
+  height: 140,
+  };
 const mapStateToProps = state => ({
   isNotesPanelDisabled: selectors.isElementDisabled(state, 'notesPanel'),
   isDisabled: selectors.isElementDisabled(state, 'annotationPopup'),

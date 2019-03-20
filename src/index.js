@@ -88,7 +88,7 @@ if (window.CanvasRenderingContext2D) {
   if (state.advanced.preloadWorker && state.advanced.engineType === engineTypes.PDFNETJS) {
     if (state.document.pdfType !== 'wait') {
       getBackendPromise(state.document.pdfType).then(pdfType => {
-        window.CoreControls.initPDFWorkerTransports(pdfType, {}, null);
+        window.CoreControls.preloadPDFWorker(pdfType, {}, {});
       });
     }
 
@@ -213,7 +213,6 @@ if (window.CanvasRenderingContext2D) {
           toggleFullScreen: apis.toggleFullScreen,
           unregisterTool: apis.unregisterTool(store),
           updateOutlines: apis.updateOutlines(store),
-          updateTool: apis.updateTool(store),
           loadedFromServer: false,
           serverFailed: false,
         };

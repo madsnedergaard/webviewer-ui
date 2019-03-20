@@ -18,7 +18,6 @@ class Note extends React.PureComponent {
     annotation: PropTypes.object.isRequired,
     isNoteEditing: PropTypes.bool.isRequired,
     isNoteExpanded: PropTypes.bool.isRequired,
-    isAnnotationFocused: PropTypes.bool,
     setIsNoteEditing: PropTypes.func.isRequired,
     searchInput: PropTypes.string,
     isReadOnly: PropTypes.bool,
@@ -37,7 +36,6 @@ class Note extends React.PureComponent {
       isReplyFocused: false,
       isEmpty: true
     };
-    this.containerRef = React.createRef();
   }
 
   componentDidMount() {
@@ -50,7 +48,6 @@ class Note extends React.PureComponent {
     const commentEditable = core.canModify(annotation) && !annotation.getContents();
     const noteBeingEdited = !prevProps.isNoteEditing && this.props.isNoteEditing;
     const noteCollapsed = prevProps.isNoteExpanded && !this.props.isNoteExpanded;
-    const annotationWasFocused = !prevProps.isAnnotationFocused && this.props.isAnnotationFocused;
 
     if (noteBeingEdited) {
       if (commentEditable) {
@@ -65,10 +62,6 @@ class Note extends React.PureComponent {
         isRootContentEditing: false,
         isReplyFocused: false
       });
-    }
-
-    if (annotationWasFocused) {
-      this.scrollIntoView();
     }
   }
 
@@ -107,10 +100,6 @@ class Note extends React.PureComponent {
     }
   }
 
-  scrollIntoView = () => {
-    this.containerRef.current.scrollIntoView();
-  }
-
   openRootEditing = () => {
     this.setState({ isRootContentEditing: true });
   }
@@ -122,8 +111,8 @@ class Note extends React.PureComponent {
 
   onChange = () => {
     this.setState({ isEmpty: this.replyTextarea.current.value.length === 0 });
-    this.replyTextarea.current.style.height = '30px';
-    this.replyTextarea.current.style.height = (this.replyTextarea.current.scrollHeight + 2) + 'px';
+    //this.replyTextarea.current.style.height = '30px';
+    //this.replyTextarea.current.style.height = (this.replyTextarea.current.scrollHeight + 2) + 'px';
   }
 
   onKeyDown = e => {
@@ -213,6 +202,7 @@ class Note extends React.PureComponent {
   render() {
     const { annotation, t, isReadOnly, isNoteExpanded, searchInput, visible, isReplyDisabled, rootContents }  = this.props;
     const { replies, isRootContentEditing, isReplyFocused } = this.state;
+    console.log(replies.length);
     const className = [
       'Note',
       isNoteExpanded ? 'expanded' : '',
@@ -220,20 +210,7 @@ class Note extends React.PureComponent {
     ].join(' ').trim();
 
     return (
-      <div ref={this.containerRef} className={className} onClick={this.onClickNote}>
-        <NoteRoot
-          annotation={annotation}
-          contents={rootContents}
-          searchInput={searchInput}
-          renderAuthorName={this.renderAuthorName}
-          renderContents={this.renderContents}
-          isNoteExpanded={isNoteExpanded}
-          isEditing={isRootContentEditing}
-          openEditing={this.openRootEditing}
-          closeEditing={this.closeRootEditing}
-          numberOfReplies={replies.length}
-        />
-
+      <div className={className} onClick={this.onClickNote}>
         <div className={`replies ${isNoteExpanded ? 'visible' : 'hidden'}`}>
           {replies.map(reply =>
             <NoteReply
@@ -244,7 +221,7 @@ class Note extends React.PureComponent {
               renderContents={this.renderContents}
             />
           )}
-          {!isReadOnly && !isReplyDisabled &&
+          {!isReadOnly && !isReplyDisabled && replies.length === 0 &&
             <div className={isRootContentEditing ? 'replies hidden' : 'add-reply'} onClick={e => e.stopPropagation()}>
               <textarea
                 ref={this.replyTextarea}
@@ -256,7 +233,7 @@ class Note extends React.PureComponent {
               />
               {isReplyFocused &&
                 <div className="buttons" onMouseDown={e => e.preventDefault()}>
-                  <button className={this.state.isEmpty ? 'disabled' : ''} onMouseDown={this.postReply}>{t('action.reply')}</button>
+                  <button className={this.state.isEmpty ? 'disabled' : ''} onMouseDown={this.postReply}>Save</button>
                   <button onMouseDown={this.onClickCancel}>{t('action.cancel')}</button>
                 </div>
               }
@@ -271,7 +248,6 @@ class Note extends React.PureComponent {
 const mapStateToProps = (state, ownProps) => ({
   isNoteExpanded: selectors.isNoteExpanded(state, ownProps.annotation.Id),
   isNoteEditing: selectors.isNoteEditing(state, ownProps.annotation.Id),
-  isAnnotationFocused: selectors.isAnnotationFocused(state, ownProps.annotation.Id),
   isReadOnly: selectors.isDocumentReadOnly(state),
   isReplyDisabled: selectors.isElementDisabled(state, 'noteReply')
 });

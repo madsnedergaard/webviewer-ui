@@ -14,7 +14,7 @@ var viewer = new PDFTron.WebViewer({
   initialDoc: '/samples/files/webviewer-demo-annotated.pdf',
 }, viewerElement);
 var viewerInstance;
-var Tools
+var Tools;
 
 viewerElement.addEventListener('ready', function() {
   viewerInstance = viewer.getInstance();
@@ -41,200 +41,200 @@ viewerElement.addEventListener('ready', function() {
 });
 
 var apis = {
-  loadDocument: function() {
+  loadDocument() {
     viewerInstance.loadDocument('/samples/files/webviewer-demo-annotated.pdf');
   },
-  closeDocument: function() {
+  closeDocument() {
     viewerInstance.closeDocument();
   },
   divider1: true,
-  addSearchListener: function() {
+  addSearchListener() {
     viewerInstance.addSearchListener(constants.searchListener);
   },
-  removeSearchListener: function() {
+  removeSearchListener() {
     viewerInstance.removeSearchListener(constants.searchListener);
   },
-  searchText: function() {
+  searchText() {
     viewerInstance.searchText('web');
   },
-  searchTextFull: function() {
+  searchTextFull() {
     viewerInstance.searchTextFull('web');
   },
   divider2: true,
-  addSortStrategy: function() {
+  addSortStrategy() {
     viewerInstance.addSortStrategy(constants.sortStrategy);
   },
-  setSortStrategy: function() {
+  setSortStrategy() {
     viewerInstance.setSortStrategy('time');
   },
   divider3: true,
-  openElement: function() {
+  openElement() {
     viewerInstance.openElement('viewControlsOverlay');
   },
-  isElementOpen: function() {
+  isElementOpen() {
     viewerInstance.isElementOpen('viewControlsOverlay');
   },
-  closeElement: function() {
+  closeElement() {
     viewerInstance.closeElement('viewControlsOverlay');
   },
-  toggleElement: function() {
+  toggleElement() {
     viewerInstance.toggleElement('viewControlsOverlay');
   },
-  openElements: function() {
+  openElements() {
     viewerInstance.openElements([ 'outlinesPanel' ]);
   },
-  closeElements: function() {
+  closeElements() {
     viewerInstance.closeElements([ 'outlinesPanel' ]);
   },
   divider4: true,
-  disableTool: function() {
+  disableTool() {
     viewerInstance.disableTool('AnnotationCreateSticky');
   },
-  isToolDisabled: function() {
+  isToolDisabled() {
     viewerInstance.isToolDisabled('AnnotationCreateSticky');
   },
-  enableTool: function() {
+  enableTool() {
     viewerInstance.enableTool('AnnotationCreateSticky');
   },
-  disableTools: function() {
+  disableTools() {
     viewerInstance.disableTools();
   },
-  enableTools: function() {
+  enableTools() {
     viewerInstance.enableTools();
   },
   divider5: true,
-  disableElement: function() {
+  disableElement() {
     viewerInstance.disableElement('leftPanelButton');
   },
-  isElementDisabled: function() {
+  isElementDisabled() {
     viewerInstance.isElementDisabled('leftPanelButton');
   },
-  enableElement: function() {
+  enableElement() {
     viewerInstance.enableElement('leftPanelButton');
   },
-  disableElements: function() {
+  disableElements() {
     viewerInstance.disableElements([ 'fitButton', 'zoomOutButton', 'zoomInButton' ]);
   },
-  enableElements: function() {
+  enableElements() {
     viewerInstance.enableElements([ 'fitButton', 'zoomOutButton', 'zoomInButton' ]);
   },
-  enableAllElements: function() {
+  enableAllElements() {
     viewerInstance.enableAllElements();
   },
   divider6: true,
-  disableAnnotations: function() {
+  disableAnnotations() {
     viewerInstance.disableAnnotations();
   },
-  enableAnnotations: function() {
+  enableAnnotations() {
     viewerInstance.enableAnnotations();
   },
-  disableDownload: function() {
+  disableDownload() {
     viewerInstance.disableDownload();
   },  
-  enableDownload: function() {
+  enableDownload() {
     viewerInstance.enableDownload();
   },  
-  enableFilePicker: function() {
+  enableFilePicker() {
     viewerInstance.enableFilePicker();
   },
-  disableFilePicker: function() {
+  disableFilePicker() {
     viewerInstance.disableFilePicker();
   },
-  disableNotesPanel: function() {
+  disableNotesPanel() {
     viewerInstance.disableNotesPanel();
   },
-  enableNotesPanel: function() {
+  enableNotesPanel() {
     viewerInstance.enableNotesPanel();
   },
-  disablePrint: function() {
+  disablePrint() {
     viewerInstance.disablePrint();
   },
-  enablePrint: function() {
+  enablePrint() {
     viewerInstance.enablePrint();
   },
-  useEmbeddedPrint: function() {
+  useEmbeddedPrint() {
     viewerInstance.useEmbeddedPrint(false);
   },
-  disableTextSelection: function() {
+  disableTextSelection() {
     viewerInstance.disableTextSelection();
   },
-  enableTextSelection: function() {
+  enableTextSelection() {
     viewerInstance.enableTextSelection();
   },
   divider7: true,
-  setAnnotationUser: function() {
+  setAnnotationUser() {
     viewerInstance.setAnnotationUser('PDFTron');
   },
-  getAnnotationUser: function() {
+  getAnnotationUser() {
     console.log('Current annotation user: ', viewerInstance.getAnnotationUser());
   },
-  setAdminUser: function() {
+  setAdminUser() {
     viewerInstance.setAdminUser(true);
   },
-  isAdminUser: function() {
+  isAdminUser() {
     console.log('Is user admin: ', viewerInstance.isAdminUser());
   },
-  setReadOnly: function() {
+  setReadOnly() {
     viewerInstance.setReadOnly(true);
   },
-  isReadOnly: function() {
+  isReadOnly() {
     console.log('Is read only: ', viewerInstance.isReadOnly());
   },
   divider8: true,
-  getCurrentPageNumber: function() {
+  getCurrentPageNumber() {
     console.log('Current page number: ', viewerInstance.getCurrentPageNumber());
   },
-  setCurrentPageNumber: function() {
+  setCurrentPageNumber() {
     viewerInstance.setCurrentPageNumber(2);
   },
-  getPageCount: function() {
+  getPageCount() {
     console.log('Total pages: ', viewerInstance.getPageCount());
   },
-  goToNextPage: function() {
+  goToNextPage() {
     viewerInstance.goToNextPage();
   },
-  goToPrevPage: function() {
+  goToPrevPage() {
     viewerInstance.goToPrevPage();
   },
-  goToLastPage: function() {
+  goToLastPage() {
     viewerInstance.goToLastPage();
   },
-  goToFirstPage: function() {
+  goToFirstPage() {
     viewerInstance.goToFirstPage();
   },
   divider9: true,
-  getFitMode: function() {
+  getFitMode() {
     console.log('Current fit mode: ', viewerInstance.getFitMode());
   },
-  setFitMode: function() {
+  setFitMode() {
     viewerInstance.setFitMode(viewerInstance.FitMode.FitWidth);
   },
-  getLayoutMode: function() {
+  getLayoutMode() {
     console.log('Current layout mode: ', viewerInstance.getLayoutMode());
   },
-  setLayoutMode: function() {
+  setLayoutMode() {
     viewerInstance.setLayoutMode(viewerInstance.LayoutMode.Single);
   },
-  getZoomLevel: function() {
+  getZoomLevel() {
     console.log('Current zoom level: ', viewerInstance.getZoomLevel());
   },
-  setZoomLevel: function() {
+  setZoomLevel() {
     viewerInstance.setZoomLevel('160%');
   },
-  rotateClockwise: function() {
+  rotateClockwise() {
     viewerInstance.rotateClockwise();
   },
-  rotateCounterClockwise: function() {
+  rotateCounterClockwise() {
     viewerInstance.rotateCounterClockwise();
   },
   divider10: true,
-  getToolMode: function() {
+  getToolMode() {
     console.log('Current tool mode: ', viewerInstance.getToolMode());
   },
-  setToolMode: function() {
+  setToolMode() {
     viewerInstance.setToolMode('AnnotationCreateRectangle');
   },
-  registerTool: function() {
+  registerTool() {
     var contentWindow = document.querySelector('iframe').contentWindow;
     var MyTool = function() {
       contentWindow.Tools.StickyCreateTool.call(this, viewerInstance.docViewer, contentWindow.Annotations.StickyAnnotation);
@@ -250,22 +250,22 @@ var apis = {
     });
     viewerInstance.setToolMode('MyTool');
   },
-  unregisterTool: function() {
+  unregisterTool() {
     viewerInstance.unregisterTool('MyTool');
   },
-  updateTool: function() {
+  updateTool() {
     viewerInstance.updateTool('AnnotationCreateRectangle', {
       buttonGroup: 'miscTools'
     });
   },
   divider12: true,  
-  setActiveHeaderGroup: function() {
+  setActiveHeaderGroup() {
     viewerInstance.setActiveHeaderGroup('tools');
   },
-  setActiveLeftPanel: function() {
+  setActiveLeftPanel() {
     viewerInstance.setActiveLeftPanel('thumbnailsPanel');
   },  
-  setCustomPanel: function() {
+  setCustomPanel() {
     viewerInstance.setCustomPanel({
       tab:{
         dataElement: 'customPanelTab',
@@ -282,7 +282,7 @@ var apis = {
       }
     });
   },
-  setHeaderItems: function() {
+  setHeaderItems() {
     viewerInstance.setHeaderItems(function(header) {
       header.push({
         type: 'actionButton',
@@ -293,30 +293,30 @@ var apis = {
       })
     });
   },
-  setLanguage: function() {
+  setLanguage() {
     viewerInstance.setLanguage('fr');
   },
-  setNoteDateFormat: function() {
+  setNoteDateFormat() {
     viewerInstance.setNoteDateFormat('DD.MM.YYYY HH:MM');
   },
-  setPageLabels: function() {
+  setPageLabels() {
     viewerInstance.setPageLabels([ 'i', 'ii', 'iii' ]);
   },
-  setTheme: function() {
+  setTheme() {
     viewerInstance.setTheme('dark');
   },
   divider13: true,
-  downloadPdf: function() {
+  downloadPdf() {
     viewerInstance.downloadPdf();
   },
-  focusNote: function() {
+  focusNote() {
     var annotationId = viewerInstance.docViewer.getAnnotationManager().getAnnotationsList()[0].Id;
     viewerInstance.focusNote(annotationId);
   },
-  isMobileDevice: function() {
+  isMobileDevice() {
     console.log('isMobileDevice: ' + !!viewerInstance.isMobileDevice());
   },
-  toggleFullScreen: function() {
+  toggleFullScreen() {
     viewerInstance.toggleFullScreen();
   }
-}
+};

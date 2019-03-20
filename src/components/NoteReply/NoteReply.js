@@ -40,41 +40,27 @@ class NoteReply extends React.PureComponent {
     this.setState({ isEditing: false });
   }
 
-  renderHeader = () => {
-    const { reply, renderAuthorName, noteDateFormat } = this.props;
-
-    return (
-      <div className="title">
-        {renderAuthorName(reply)}
-        <span className="spacer"></span>
-        <span className="time">
-          {' ' + dayjs(reply.DateCreated).format(noteDateFormat)}
-        </span>
-        <NotePopup 
-          annotation={reply} 
-          isNoteExpanded 
-          openEditing={this.openEditing} 
-          onDelete={this.deleteReply} 
-        />
-      </div>
-    );
-  }
-
   render() {
     const { reply, renderContents, searchInput } = this.props;
     const { isEditing } = this.state;
 
     return (
       <div className="NoteReply" onClick={e => e.stopPropagation()}>
-        {this.renderHeader()}
-        <NoteContents
-          annotation={reply}
-          contents={reply.getContents()}
-          searchInput={searchInput}
-          renderContents={renderContents}
-          isEditing={isEditing} 
-          closeEditing={this.closeEditing} 
-        />
+      <NoteContents
+        annotation={reply}
+        contents={reply.getContents()}
+        searchInput={searchInput}
+        renderContents={renderContents}
+        isEditing={isEditing} 
+        closeEditing={this.closeEditing} 
+      />
+      <NotePopup 
+      annotation={reply} 
+      isNoteExpanded 
+      openEditing={this.openEditing} 
+      onDelete={this.deleteReply}
+      />
+      
       </div>
     );
   }
